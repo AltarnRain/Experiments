@@ -1,4 +1,7 @@
-﻿using SettingsByName.Properties;
+﻿/* Figured how to get and set appliction settings by using the Control.Name property. 
+ */
+
+using SettingsByName.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
