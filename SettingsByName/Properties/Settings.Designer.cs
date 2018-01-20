@@ -58,5 +58,17 @@ namespace SettingsByName.Properties {
                 this["PersonAlive"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PersonLastName {
+            get {
+                return ((string)(this["PersonLastName"]));
+            }
+            set {
+                this["PersonLastName"] = value;
+            }
+        }
     }
 }
