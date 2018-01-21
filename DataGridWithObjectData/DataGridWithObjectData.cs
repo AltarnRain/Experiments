@@ -5,21 +5,14 @@
  */
 
 using DataGridWithObjectData.Binder;
-using DataGridWithObjectData.Factories;
-using DataGridWithObjectData.Handlers;
 using DataGridWithObjectData.Properties;
-using DataGridWithObjectData.Providers;
 using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace DataGridWithObjectData
 {
     public partial class DataGridWithObjectData : Form
     {
-
-               
-        private readonly IViewFactory viewFactory;
         private readonly IDataSettingBinder dataSettingBinder;
 
         public DataGridWithObjectData(IDataSettingBinder dataSettingBinder)
