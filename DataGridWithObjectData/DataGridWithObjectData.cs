@@ -4,6 +4,7 @@
  * OI
  */
 
+using DataGridWithObjectData.Binder;
 using DataGridWithObjectData.Factories;
 using DataGridWithObjectData.Handlers;
 using DataGridWithObjectData.Properties;
@@ -17,42 +18,35 @@ namespace DataGridWithObjectData
     public partial class DataGridWithObjectData : Form
     {
 
-        private BindingSource bindingSource = new BindingSource();        
+               
         private readonly IViewFactory viewFactory;
-        private readonly IDataHandlerFactory dataHandlerFactory;
-        private IDataHandler<Data> dataRowHandler;
+        private readonly IDataSettingBinder dataSettingBinder;
 
-        public DataGridWithObjectData(IViewFactory viewFactory, IDataHandlerFactory dataHandlerFactory)
+        public DataGridWithObjectData(IDataSettingBinder dataSettingBinder)
         {
             InitializeComponent();
-            this.viewFactory = viewFactory;
-            this.dataHandlerFactory = dataHandlerFactory;
-
-            this.dataRowHandler = this.dataHandlerFactory.Create<Data>(Settings.Default.Data);
+            this.dataSettingBinder = dataSettingBinder;
         }
 
         private void DataGridWithObjectData_Load(object sender, EventArgs e)
         {            
-            bindingSource.DataSource = dataRowHandler.GetData();
-            DataGrid.AutoGenerateColumns = true;
-            DataGrid.AutoSize = true;
-            DataGrid.DataSource = bindingSource;
+     
         }
 
         private void Add_Click(object sender, EventArgs e)
         {
-            this.dataRowHandler.Add(new Data());
+            //this.dataRowHandler.Add(new Data());
         }
 
         private void Remove_Click(object sender, EventArgs e)
         {
             var listItem = DataGrid.CurrentRow.DataBoundItem as Data;
-            this.dataRowHandler.Remove(listItem);
+            //this.dataRowHandler.Remove(listItem);
         }
         
         private void Save_Click(object sender, EventArgs e)
         {
-            Settings.Default.Data = this.dataRowHandler.GetStringData();
+            //Settings.Default.Data = this.dataRowHandler.GetStringData();
             Settings.Default.Save();
         }
     }

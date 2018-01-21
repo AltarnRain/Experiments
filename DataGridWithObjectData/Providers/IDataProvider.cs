@@ -2,10 +2,10 @@
 
 namespace DataGridWithObjectData.Providers
 {
-    public interface IDataProvider
+    public interface IDataProvider<T>
     {
-        BindingList<T> GetData<T>(string data);
+        BindingList<T> GetData(string data);
 
-        string GetData<T>(BindingList<T> bindingList);
+        string GetData(BindingList<T> bindingList);
     }
 }

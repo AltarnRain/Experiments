@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binder\DataSettingBinder.cs" />
+    <Compile Include="Binder\IDataSettingBinder.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="DataGridWithObjectData.cs">
       <SubType>Form</SubType>

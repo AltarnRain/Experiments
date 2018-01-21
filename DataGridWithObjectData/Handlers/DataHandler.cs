@@ -5,14 +5,14 @@ namespace DataGridWithObjectData.Handlers
 {
     public class DataHandler<T> : IDataHandler<T>
     {
-        private readonly IDataProvider dataProvider;
+        private readonly IDataProvider<T> dataProvider;
 
         private BindingList<T> bindingList = new BindingList<T>();
 
-        public DataHandler(IDataProvider dataProvider, string data)
+        public DataHandler(IDataProvider<T> dataProvider, string data)
         {
             this.dataProvider = dataProvider;
-            this.bindingList = dataProvider.GetData<T>(data);
+            this.bindingList = dataProvider.GetData(data);
         }
 
         public BindingList<T> Add(T data)
