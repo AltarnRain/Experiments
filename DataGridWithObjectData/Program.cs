@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DataGridWithObjectData.Factories;
+using Ninject;
+using System;
 using System.Windows.Forms;
 
 namespace DataGridWithObjectData
@@ -16,7 +15,12 @@ namespace DataGridWithObjectData
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DataGridWithObjectData());
+
+            using (var kernel = new StandardKernel(new Modules()))
+            {
+                var mainForm = kernel.Get<ViewFactory>().Create<DataGridWithObjectData>();
+                Application.Run(mainForm);
+            }
         }
     }
 }

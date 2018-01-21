@@ -37,13 +37,12 @@
             // 
             // DataGrid
             // 
+            this.DataGrid.AllowUserToAddRows = false;
             this.DataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGrid.Location = new System.Drawing.Point(0, 41);
             this.DataGrid.Name = "DataGrid";
             this.DataGrid.Size = new System.Drawing.Size(773, 434);
             this.DataGrid.TabIndex = 0;
-            this.DataGrid.AllowUserToAddRows = false;
-
             // 
             // Add
             // 

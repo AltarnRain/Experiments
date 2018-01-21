@@ -4,7 +4,10 @@
  * OI
  */
 
+using DataGridWithObjectData.Factories;
+using DataGridWithObjectData.Handlers;
 using DataGridWithObjectData.Properties;
+using DataGridWithObjectData.Providers;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -14,30 +17,23 @@ namespace DataGridWithObjectData
     public partial class DataGridWithObjectData : Form
     {
 
-        private BindingSource bindingSource = new BindingSource();
-        private BindingList<Data> lijst = new BindingList<Data>();
+        private BindingSource bindingSource = new BindingSource();        
+        private readonly IViewFactory viewFactory;
+        private readonly IDataHandlerFactory dataHandlerFactory;
+        private IDataHandler<Data> dataRowHandler;
 
-        public DataGridWithObjectData()
+        public DataGridWithObjectData(IViewFactory viewFactory, IDataHandlerFactory dataHandlerFactory)
         {
             InitializeComponent();
+            this.viewFactory = viewFactory;
+            this.dataHandlerFactory = dataHandlerFactory;
+
+            this.dataRowHandler = this.dataHandlerFactory.Create<Data>(Settings.Default.Data);
         }
 
         private void DataGridWithObjectData_Load(object sender, EventArgs e)
-        {
-            if (Settings.Default.Data == string.Empty)
-            {
-                // Add some test data
-                lijst.Add(new Data { Name = "Piet", Age = 39 });
-                lijst.Add(new Data { Name = "Klaas", Age = 35 });
-                lijst.Add(new Data { Name = "Joost", Age = 12 });
-            }
-            else
-            {
-                lijst = Newtonsoft.Json.JsonConvert.DeserializeObject<BindingList<Data>>(Settings.Default.Data);
-            }
-
-            bindingSource.DataSource = lijst;
-
+        {            
+            bindingSource.DataSource = dataRowHandler.GetData();
             DataGrid.AutoGenerateColumns = true;
             DataGrid.AutoSize = true;
             DataGrid.DataSource = bindingSource;
@@ -45,23 +41,18 @@ namespace DataGridWithObjectData
 
         private void Add_Click(object sender, EventArgs e)
         {
-            this.lijst.Add(new Data());
+            this.dataRowHandler.Add(new Data());
         }
 
         private void Remove_Click(object sender, EventArgs e)
         {
             var listItem = DataGrid.CurrentRow.DataBoundItem as Data;
-            this.lijst.Remove(listItem);
+            this.dataRowHandler.Remove(listItem);
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void Save_Click(object sender, EventArgs e)
         {
-            Settings.Default.Data = Newtonsoft.Json.JsonConvert.SerializeObject(lijst);
+            Settings.Default.Data = this.dataRowHandler.GetStringData();
             Settings.Default.Save();
         }
     }
