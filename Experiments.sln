@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBindControlsExample", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBindTextBox", "DataBindTextBox\DataBindTextBox.csproj", "{B676E1B1-AE9F-4365-87CF-F3785EA3834F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "WpfApp\WpfApp.csproj", "{2023385A-9320-41DC-AECD-09111B8364E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B676E1B1-AE9F-4365-87CF-F3785EA3834F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B676E1B1-AE9F-4365-87CF-F3785EA3834F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B676E1B1-AE9F-4365-87CF-F3785EA3834F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2023385A-9320-41DC-AECD-09111B8364E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2023385A-9320-41DC-AECD-09111B8364E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2023385A-9320-41DC-AECD-09111B8364E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2023385A-9320-41DC-AECD-09111B8364E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
