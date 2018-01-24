@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninjection", "Ninjection\Ni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBindControlsExample", "DataBindControls\DataBindControlsExample.csproj", "{FF4D51E2-3DA8-4C23-83D6-55CE05759F11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBindTextBox", "DataBindTextBox\DataBindTextBox.csproj", "{B676E1B1-AE9F-4365-87CF-F3785EA3834F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FF4D51E2-3DA8-4C23-83D6-55CE05759F11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF4D51E2-3DA8-4C23-83D6-55CE05759F11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF4D51E2-3DA8-4C23-83D6-55CE05759F11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B676E1B1-AE9F-4365-87CF-F3785EA3834F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B676E1B1-AE9F-4365-87CF-F3785EA3834F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B676E1B1-AE9F-4365-87CF-F3785EA3834F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B676E1B1-AE9F-4365-87CF-F3785EA3834F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
