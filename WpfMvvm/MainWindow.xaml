@@ -1,0 +1,23 @@
+﻿<Window x:Class="WpfMvvm.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfMvvm"
+         mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+
+    <Window.Resources>
+        <local:CustomerViewModel x:Key="custviewobj" TxtCustomerName="Shiv" TxtAmount="1000" IsMarried="true"/>
+    </Window.Resources>
+
+    <Grid>
+        <Label Content="{Binding TxtCustomerName, Source={StaticResource custviewobj}}" HorizontalAlignment="Left" Margin="72,59,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding TxtAmount, Source={StaticResource custviewobj}}" HorizontalAlignment="Left" Margin="72,90,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="{Binding IsMarried, Source={StaticResource custviewobj}}" HorizontalAlignment="Left" Margin="72,121,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding LblAmountColor, Mode=OneWay, Source={StaticResource custviewobj}}" HorizontalAlignment="Left" Margin="72,141,0,0" VerticalAlignment="Top"/>
+        <Button Content="Calc" HorizontalAlignment="Left" Height="37" Margin="72,202,0,0" VerticalAlignment="Top" Width="103" Command="{Binding btnClick, Mode=OneWay, Source={StaticResource custviewobj}}" RenderTransformOrigin="0.207,2.368"/>
+        <Label Content="{Binding Tax, Mode=OneWay, Source={StaticResource custviewobj}}" HorizontalAlignment="Left" Margin="72,172,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
