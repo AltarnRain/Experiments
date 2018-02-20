@@ -22,7 +22,6 @@ namespace WpfMvvm
 
         private ButtonCommand objCommand;
 
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public CustomerViewModel()
