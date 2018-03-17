@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squares", "Squares\Squares.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquaresWpf", "SquaresWpf\SquaresWpf.csproj", "{36B0EDA2-23C3-48A9-9763-0857A34A4818}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ", "LINQ\LINQ.csproj", "{9B80CED0-EA3A-478F-8197-69F2F590BB90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{36B0EDA2-23C3-48A9-9763-0857A34A4818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36B0EDA2-23C3-48A9-9763-0857A34A4818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36B0EDA2-23C3-48A9-9763-0857A34A4818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B80CED0-EA3A-478F-8197-69F2F590BB90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B80CED0-EA3A-478F-8197-69F2F590BB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B80CED0-EA3A-478F-8197-69F2F590BB90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B80CED0-EA3A-478F-8197-69F2F590BB90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
