@@ -25,7 +25,7 @@ namespace LINQ
             });
 
             var result = people.Where(p => f(p.Age));
-            Assert.AreEqual(result.Single().Name, "Johan");
+            Assert.AreEqual("Herman", result.First().Name);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace LINQ
             var result = people.Take(2).ToArray();
             Assert.AreEqual(2, result.Count());
             Assert.AreEqual("Piet", result.First().Name);
-            Assert.AreEqual("Marie", result.Last().Name);
+            Assert.AreEqual("Karolien", result.Last().Name);
         }
 
         [TestMethod]
@@ -45,9 +45,9 @@ namespace LINQ
             var people = Person.GetPeople();
 
             var result = people.Skip(2).ToArray();
-            Assert.AreEqual(2, result.Count());
-            Assert.AreEqual("Ilse", result.First().Name);
-            Assert.AreEqual("Johan", result.Last().Name);
+            Assert.AreEqual(10, result.Count());
+            Assert.AreEqual("Karel", result.First().Name);
+            Assert.AreEqual("Teresa", result.Last().Name);
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace LINQ
             var people = Person.GetPeople();
 
             var result = people.TakeWhile(p => p.Age < 40);
-            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(7, result.Count());
         }
 
         [TestMethod]
@@ -65,7 +65,7 @@ namespace LINQ
             var people = Person.GetPeople();
 
             var result = people.SkipWhile(p => p.Age < 40);
-            Assert.AreEqual(1, result.Count());
+            Assert.AreEqual(5, result.Count());
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace LINQ
             var people = Person.GetPeople();
 
             var result = people.ElementAtOrDefault(2);
-            Assert.AreEqual("Ilse", result.Name);
+            Assert.AreEqual("Karel", result.Name);
         }
 
         [TestMethod]
@@ -82,7 +82,7 @@ namespace LINQ
         {
             var people = Person.GetPeople();
 
-            var result = people.ElementAtOrDefault(5);
+            var result = people.ElementAtOrDefault(500);
             Assert.IsNull(result);
         }
 
@@ -101,106 +101,151 @@ namespace LINQ
             var people = Person.GetPeople();
 
             var result = people.SelectMany(person => person.Family, (p, p2) => new { p.Name, Familymember = p2.Name });
-            Assert.AreEqual(8, result.Count());
+            Assert.AreEqual(36, result.Count());
         }
+
+        [TestMethod]
+        public void LookUp()
+        {
+            var people = Person.GetPeople();
+
+            var results = people.ToLookup(p => p.Name, p => p.Family);
+
+            Assert.IsTrue(results.Select(r => r.Key == "Piet").Any());
+
+            var pietsFamilyCount = (from result in results
+                                   where result.Key == "Piet"
+                                   from family in result
+                                   select family.Count()).Single();
+
+            Assert.AreEqual(2, pietsFamilyCount);
+        }
+
     }
 
     public class Person
     {
+        public Person()
+        {
+            this.Family = new List<Person>();
+        }
+
         public string Name { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
         public List<Person> Family { get; set; }
+        public string Gender { get; set; }
 
         public static List<Person> GetPeople()
         {
-            return new List<Person>
+            var persons = new List<Person>
             {
                 new Person
                 {
                     Name = "Piet",
                     LastName = "Keizer",
                     Age = 39,
-                    Family = new List<Person>
-                    {
-                        new Person
-                        {
-                            Name= "Karolien",
-                            LastName = "Keizer",
-                            Age = 38
-                        },
-                        new Person
-                        {
-                            Name= "Karel",
-                            LastName = "Keizer",
-                            Age = 12
-                        }
-                    }
+                    Gender = Genders.Male.ToString(),                    
+                },
+                new Person
+                {
+                    Name = "Karolien",
+                    LastName = "Keizer",
+                    Age = 38,
+                    Gender= Genders.Female.ToString(),
+                },
+                new Person
+                {
+                    Name = "Karel",
+                    LastName = "Keizer",
+                    Age = 12,
+                    Gender = Genders.Male.ToString(),
+                    
                 },
                 new Person
                 {
                     Name = "Marie",
                     LastName = "Smit",
                     Age = 35,
-                    Family = new List<Person>
-                    {
-                        new Person
-                        {
-                            Name= "Jamie",
-                            LastName = "Smit",
-                            Age = 8
-                        },
-                        new Person
-                        {
-                            Name= "Merel",
-                            LastName = "Smit",
-                            Age = 6
-                        }
-                    }
+                    Gender = Genders.Female.ToString(),
+                },
+                new Person
+                {
+                    Name = "Jamie",
+                    LastName = "Smit",
+                    Age = 8,
+                    Gender = Genders.Male.ToString(),
+                },
+                new Person
+                {
+                    Name = "Merel",
+                    LastName = "Smit",
+                    Age = 6,
+                    Gender = Genders.Female.ToString(),
                 },
                 new Person
                 {
                     Name = "Ilse",
                     LastName = "de Vos",
                     Age = 24,
-                    Family = new List<Person>
-                    {
-                        new Person
-                        {
-                            Name= "Herman",
-                            LastName = "de Vos",
-                            Age = 56
-                        },
-                        new Person
-                        {
-                            Name= "Sofie",
-                            LastName = "de Vos",
-                            Age = 54
-                        }
-                    }
+                    Gender = Genders.Female.ToString(),
+                },
+                new Person
+                {
+                    Name = "Herman",
+                    LastName = "de Vos",
+                    Age = 56,
+                    Gender = Genders.Male.ToString(),
+                },
+                new Person
+                {
+                    Name = "Sofie",
+                    LastName = "de Vos",
+                    Age = 54,
+                    Gender = Genders.Female.ToString()
+                    
                 },
                 new Person
                 {
                     Name = "Johan",
                     LastName = "Johnson",
                     Age = 44,
-                    Family = new List<Person>
-                    {
-                        new Person
-                        {
-                            Name= "Gerda",
-                            LastName = "Johnson",
-                            Age = 56
-                        },
-                        new Person
-                        {
-                            Name= "Teresa",
-                            LastName = "Johnson",
-                            Age = 19
-                        }
-                    }
-                }
+                    Gender = Genders.Male.ToString(),
+                },
+                new Person
+                {
+                    Name = "Gerda",
+                    LastName = "Johnson",
+                    Age = 56,
+                    Gender = Genders.Female.ToString(),
+                },
+                new Person
+                {
+                    Name = "Teresa",
+                    LastName = "Johnson",
+                    Age = 19,
+                    Gender = Genders.Female.ToString(),
+                },
             };
+
+            foreach (var person in persons)
+            {
+                var fullName = person.Name + person.LastName;
+                var family = from people in persons
+                             where people.LastName == person.LastName
+                             where people.Name + people.LastName != fullName
+                             select people;
+
+                person.Family = family.ToList();
+            }
+
+            return persons;
         }
+    }
+
+    public enum Genders
+    {
+        Male,
+        Female,
     }
 }
