@@ -109,18 +109,26 @@ namespace LINQ
         {
             var people = Person.GetPeople();
 
-            var results = people.ToLookup(p => p.Name, p => p.Family);
+            var families = people.ToLookup(p => p.LastName, p => p);
 
-            Assert.IsTrue(results.Select(r => r.Key == "Piet").Any());
+            Assert.IsTrue(families.Select(r => r.Key == "Piet").Any());
 
-            var pietsFamilyCount = (from result in results
-                                   where result.Key == "Piet"
-                                   from family in result
-                                   select family.Count()).Single();
+            var pietsFamilyCount = (from family in families
+                                    where family.Key == "Keizer"                                    
+                                    select family.Count()).SingleOrDefault();
 
-            Assert.AreEqual(2, pietsFamilyCount);
+            Assert.AreEqual(3, pietsFamilyCount);
         }
 
+        [TestMethod]
+        public void ToDictionary()
+        {
+            var people = Person.GetPeople();
+
+            var result = people.ToDictionary(p => p.Name);
+
+            Assert.IsTrue(result.Select(r => r.Key == "Piet").Any());
+        }
     }
 
     public class Person
