@@ -2,6 +2,7 @@
  * Test class with some linq experiments.
  */
 
+using DebugUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -128,6 +129,36 @@ namespace LINQ
             var result = people.ToDictionary(p => p.Name);
 
             Assert.IsTrue(result.Select(r => r.Key == "Piet").Any());
+        }
+
+        [TestMethod]
+        public void ThreeColumns()
+        {
+            var people = Person.GetPeople().OrderBy(p => p.Name + p.LastName);
+
+            var grouped = Enumerable.Range(0, people.Count())
+                   .Select(index => index)
+                   .GroupBy(index => index % 3)
+                   .Select(indexes => indexes.Select(index => people.ElementAt(index)))
+                   .ToArray();
+                   
+
+            grouped.Dump();
+        }
+
+        [TestMethod]
+        public void ThreeColumns2()
+        {
+            var grouped = from e in Enumerable.Range(0, (int)Math.Ceiling((double)(Person.GetPeople().Count() - 1 / 3)))                          
+                          select new
+                          {
+                              Col1 = Person.GetPeople().Select((p, i) => new { Person = p, col = i % 3 }).Where(p => p.col == 1),
+                              Col2 = Person.GetPeople().Select((p, i) => new { Person = p, col = i % 3 }).Where(p => p.col == 2),
+                              Col3 = Person.GetPeople().Select((p, i) => new { Person = p, col = i % 3 }).Where(p => p.col == 3),
+                          }
+                          ;
+
+            grouped.Dump();
         }
     }
 
