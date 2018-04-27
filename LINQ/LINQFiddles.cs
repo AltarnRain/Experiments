@@ -7,8 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace LINQ
 {
@@ -115,7 +114,7 @@ namespace LINQ
             Assert.IsTrue(families.Select(r => r.Key == "Piet").Any());
 
             var pietsFamilyCount = (from family in families
-                                    where family.Key == "Keizer"                                    
+                                    where family.Key == "Keizer"
                                     select family.Count()).SingleOrDefault();
 
             Assert.AreEqual(3, pietsFamilyCount);
@@ -141,7 +140,7 @@ namespace LINQ
                    .GroupBy(index => index % 3)
                    .Select(indexes => indexes.Select(index => people.ElementAt(index)))
                    .ToArray();
-                   
+
 
             grouped.Dump();
         }
@@ -149,7 +148,7 @@ namespace LINQ
         [TestMethod]
         public void ThreeColumns2()
         {
-            var grouped = from e in Enumerable.Range(0, (int)Math.Ceiling((double)(Person.GetPeople().Count() - 1 / 3)))                          
+            var grouped = from e in Enumerable.Range(0, (int)Math.Ceiling((double)(Person.GetPeople().Count() - 1 / 3)))
                           select new
                           {
                               Col1 = Person.GetPeople().Select((p, i) => new { Person = p, col = i % 3 }).Where(p => p.col == 1),
@@ -159,6 +158,48 @@ namespace LINQ
                           ;
 
             grouped.Dump();
+        }
+
+        [TestMethod]
+        public void ThreeColumns3()
+        {
+            var people =
+                                    from groupedAndRowed in (
+                                         from groupedPeople in (
+                                            from person in Person.GetPeople().Select((p, i) => new { Col = i % 3, Person = p })
+                                            group person by person.Col into g
+                                            select g
+                                            )
+                                         select groupedPeople.Select((g, i) => new { Row = i, Persons = g.Person, Col = g.Col })
+                                    )
+                                    from row in Enumerable.Range(0, 3)
+                                    select new
+                                    {
+                                        Col1 = groupedAndRowed.Where(x => x.Row == row && x.Col == 0),
+                                        Col2 = groupedAndRowed.Where(x => x.Row == row && x.Col == 1),
+                                        Col3 = groupedAndRowed.Where(x => x.Row == row && x.Col == 2),
+                                    };
+
+
+        }
+
+        [TestMethod]
+        public void Expressions_SelectPeopleByLastName()
+        {
+            var people = Person.GetPeople();
+            var person = Expression.Parameter(typeof(Person));
+            var compare = Expression.Lambda<Func<Person, bool>>(
+                Expression.Equal(
+                    Expression.PropertyOrField(person, "LastName"),
+                    Expression.Constant("Keizer", typeof(string))),
+                person);
+
+            var selectedPeople = people.Where(compare.Compile());
+
+            foreach(var selectedPerson in selectedPeople)
+            {
+                Console.WriteLine(selectedPerson.Name);
+            }
         }
     }
 
@@ -184,7 +225,7 @@ namespace LINQ
                     Name = "Piet",
                     LastName = "Keizer",
                     Age = 39,
-                    Gender = Genders.Male.ToString(),                    
+                    Gender = Genders.Male.ToString(),
                 },
                 new Person
                 {
@@ -199,7 +240,7 @@ namespace LINQ
                     LastName = "Keizer",
                     Age = 12,
                     Gender = Genders.Male.ToString(),
-                    
+
                 },
                 new Person
                 {
@@ -242,7 +283,7 @@ namespace LINQ
                     LastName = "de Vos",
                     Age = 54,
                     Gender = Genders.Female.ToString()
-                    
+
                 },
                 new Person
                 {
