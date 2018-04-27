@@ -196,10 +196,35 @@ namespace LINQ
 
             var selectedPeople = people.Where(compare.Compile());
 
-            foreach(var selectedPerson in selectedPeople)
+            foreach (var selectedPerson in selectedPeople)
             {
                 Console.WriteLine(selectedPerson.Name);
             }
+        }
+
+        [TestMethod]
+        public void Expressions_ContainsLambda()
+        {            
+            Expression<Func<string, bool>> exp = (s) => new string[] { "A", "B", "C" }.Contains(s);
+
+            Console.WriteLine(exp.Compile()("E")); // False
+            Console.WriteLine(exp.Compile()("A")); // True
+        }
+
+        [TestMethod]
+        public void Expressions_SelectPeopleIfTheirFirstNameContains_A_E_F()
+        {
+            var people = Person.GetPeople();
+
+            var letters = new string[] { "A", "E", "F" };
+            var person = Expression.Parameter(typeof(Person));
+
+            var fieldLambda = Expression.Lambda<Func<Person, string>>(Expression.PropertyOrField(person, "Name"), person);
+
+            // Get the Contains method from Enumerable.
+            var containsMethod = typeof(Enumerable).GetMethods().Where(m => m.Name == "Contains" && m.GetParameters().Count() == 2);
+
+           
         }
     }
 
