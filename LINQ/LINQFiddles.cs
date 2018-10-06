@@ -2,7 +2,6 @@
  * Test class with some linq experiments.
  */
 
-using DebugUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
